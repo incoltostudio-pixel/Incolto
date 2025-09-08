@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incolto Studio</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Courier New", Courier, monospace;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .sticker {
+      border: 2px solid black;
+      border-radius: 15px;
+      padding: 30px 40px;
+      max-width: 800px;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      transform: rotate(-3deg);
+      cursor: grab;
+      user-select: text; /* permette la selezione del testo */
+      background: white;
+    }
+
+    .sticker:active {
+      cursor: grabbing;
+    }
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .contacts {
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="sticker" id="sticker">
+    <div class="title">INCOLTO STUDIO</div>
+    <div>
+      PARTICIPATORY PRACTICES, VISUAL DESIGN<br>
+      AND SITE-SPECIFIC INTERVENTIONS TO<br>
+      REGENERATE AND INHABIT PLACES TOGETHER.
+    </div>
+    <div class="contacts">
+      INCOLTO.COM &nbsp;&nbsp; INCOLTO.STUDIO@GMAIL.COM<br>
+      @INCOLTO_STUDIO &nbsp;&nbsp; +39 3801784736
+    </div>
+  </div>
+
+  <script>
+    const sticker = document.getElementById("sticker");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    sticker.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetX = e.clientX - sticker.offsetLeft;
+      offsetY = e.clientY - sticker.offsetTop;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        sticker.style.position = "absolute";
+        sticker.style.left = (e.clientX - offsetX) + "px";
+        sticker.style.top = (e.clientY - offsetY) + "px";
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>
