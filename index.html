@@ -1,88 +1,616 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Incolto Studio</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: "Courier New", Courier, monospace;
-      user-select: none;
-      overflow: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Portfolio</title>
 
-    .sticker {
-      border: 2px solid black;
-      border-radius: 15px;
-      padding: 30px 40px;
-      max-width: 800px;
-      text-align: center;
-      font-size: 1.2rem;
-      line-height: 1.5;
-      transform: rotate(-3deg);
-      cursor: grab;
-      user-select: text; /* permette la selezione del testo */
-      background: white;
-    }
+    <style>
+        /* ============================================
+           RESET E STILI BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .sticker:active {
-      cursor: grabbing;
-    }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+ font-family: "Fragment Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
 
-    .title {
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
 
-    .contacts {
-      margin-top: 20px;
-      font-size: 1rem;
-    }
-  </style>
+
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: regular;
+            letter-spacing: 0px;
+            color: #ffffff;
+            text-decoration: none;
+            cursor: crosshair;
+        }
+
+        .about-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            padding: 0;
+            font-size: 14px;
+    font-family: "Fragment Mono";
+            letter-spacing: 0px;
+            cursor: crosshair;
+            transition: opacity 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .about-btn:hover {
+            opacity: 0.6;
+        }
+
+        /* ============================================
+           MENU LATERALE (ABOUT)
+           ============================================ */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -50%;
+            width: 35%;
+            height: 100vh;
+            background-color: #000000;
+            z-index: 200;
+            transition: right 0.5s ease;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .side-menu-content {
+            padding: 80px 60px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor:crosshair;
+            transition: transform 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .side-menu h2 {
+            font-size: 15px;
+            margin-bottom: 30px;
+            letter-spacing: 0px;
+        }
+
+        .side-menu p {
+            font-size: 15px;
+            line-height: 1.3;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        /* Overlay scuro quando il menu è aperto */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ============================================
+           CONTAINER PRINCIPALE
+           ============================================ */
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* ============================================
+           SLIDER
+           ============================================ */
+        .slider {
+            width: 98%;
+            max-width: 1400px;
+            height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ============================================
+           SLIDE SINGOLA
+           ============================================ */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ============================================
+           IMMAGINE
+           ============================================ */
+        .slide-image {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            max-height: 75vh;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        /* ============================================
+           DESCRIZIONE
+           ============================================ */
+        .slide-description {
+            position: absolute;
+            bottom:5px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.5;
+            max-width: 800px;
+            padding: 0 10px;
+            letter-spacing: 0.3px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ============================================
+           FRECCE DI NAVIGAZIONE
+           ============================================ */
+    
+        /* ============================================
+           INDICATORI (PUNTINI)
+           ============================================ */
+       
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 30px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .about-btn {
+                padding: 8px 20px;
+                font-size: 12px;
+            }
+
+            /* Menu laterale occupa tutto lo schermo su mobile */
+            .side-menu {
+                width: 100%;
+                right: -100%;
+            }
+
+            .side-menu-content {
+                padding: 60px 30px;
+            }
+
+            .close-btn {
+                right: 30px;
+            }
+
+            .side-menu h2 {
+                font-size: 24px;
+            }
+
+            .slider {
+                width: 95%;
+                height: 85vh;
+            }
+
+            .slide-image {
+                max-height: 50vh;
+                margin-bottom: 30px;
+            }
+
+            .slide-description {
+                font-size: 14px;
+                padding: 0 15px;
+            }
+
+            .arrow {
+                font-size: 30px;
+                padding: 15px;
+            }
+
+            .arrow-left {
+                left: 10px;
+            }
+
+            .arrow-right {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 1024px) and (min-width: 769px) {
+            /* Menu laterale occupa più spazio su tablet */
+            .side-menu {
+                width: 60%;
+                right: -60%;
+            }
+        }
+
+        body.left-cursor {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text x="4" y="18" font-size="18" fill="white">←</text></svg>') 12 12, auto;
+}
+
+body.right-cursor {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text x="4" y="18" font-size="18" fill="white">→</text></svg>') 12 12, auto;
+}
+
+    </style>
 </head>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
+
 <body>
-  <div class="sticker" id="sticker">
-    <div class="title">INCOLTO STUDIO</div>
-    <div>
-      PARTICIPATORY PRACTICES, VISUAL DESIGN<br>
-      AND SITE-SPECIFIC INTERVENTIONS TO<br>
-      REGENERATE AND INHABIT PLACES TOGETHER.
+    <!-- HEADER -->
+    <header class="header">
+        <a href="index.html" class="logo">INCOLTO</a>
+        <button class="about-btn" onclick="openMenu()">About</button>
+    </header>
+
+    <!-- OVERLAY -->
+    <div class="overlay" onclick="closeMenu()"></div>
+
+    <!-- MENU LATERALE (ABOUT) -->
+    <div class="side-menu">
+        <button class="close-btn" onclick="closeMenu()">×</button>
+        <div class="side-menu-content">
+            <h2>Incolto Studio</h2>
+            <p>
+                Founded in 2019, Incolto creates site-specific projects blending social design, participatory practices and visual arts. Centred on regeneration as a shared practice of care, their work fosters new ways of inhabiting places through simple, relational interventions that spark urban rituals and intergenerational ties.
+            
+            </p>
+           
+            <p>
+               We collaborate with public institutions, urban planning and architecture firms, placemakers, cultural centers, and festivals.
+            </p>
+            <p>
+        
+                - Social design<br>
+                - Workshops <br>
+                - Public space interventions <br>
+                - Temporary installation<br>
+                - Visual design and storytelling<br>
+
+
+            </p>
+            <p>
+                
+                incolto.studio@gmail.com<br>
+                 @incolto<br>
+                +39 3801784736
+            </p>
+        </div>
     </div>
-    <div class="contacts">
-      INCOLTO.COM &nbsp;&nbsp; INCOLTO.STUDIO@GMAIL.COM<br>
-      @INCOLTO_STUDIO &nbsp;&nbsp; +39 3801784736
+
+    <div class="container">
+        <!-- SLIDER -->
+        <div class="slider">
+            
+            <!-- SLIDE 1 -->
+            <div class="slide active">
+                <img src="./Media/1_morticelli_1.jpg" alt="Progetto 1" class="slide-image">
+                <p class="slide-description">
+                    Voci Plurali | Narrating Tiers Lieux<br>
+                   Brand, storytelling and space design for iMorticelli
+                </p>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="slide">
+                <img src="./Media/2_classe_1.jpg" alt="Progetto 2" class="slide-image">
+                <p class="slide-description">
+                    Microfficine del Possibile | Reading the city<br>
+                    Neighbourhood identity workshop
+                </p>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="slide">
+                <img src="Media/3_zanzare.JPG" alt="Progetto 3" class="slide-image">
+                <p class="slide-description">
+                    La casa delle Zanzare<br>
+                  Installation at Crem'amare Festival
+                </p>
+            </div>
+
+            <!-- SLIDE 4 -->
+            <div class="slide">
+                <img src="Media/4_paesaggio_1.jpg" alt="Progetto 4" class="slide-image">
+                <p class="slide-description">
+                   Paesaggio Prossimo | Observing the alpine anthropocene <br>
+           Landscape reading workshop
+                </p>
+            </div>
+
+               <!-- SLIDE 5 -->
+            <div class="slide">
+                <img src="Media/5_aquilone.jpg" alt="Progetto 5" class="slide-image">
+                <p class="slide-description">
+                  Ventografie / Kite as a craft manifest <br>
+         Kite building workshop
+                </p>
+            </div>
+
+                       <!-- SLIDE 6 -->
+            <div class="slide">
+                <img src="Media/7_ortiche.jpg" alt="Progetto65" class="slide-image">
+                <p class="slide-description">
+                  Menabò | Research on Genova city ritms <br>
+        City-telling installation
+                </p>
+            </div>
+
+                         <!-- SLIDE 7 -->
+            <div class="slide">
+                <img src="Media/13_microfficine.jpg" alt="Progetto 7" class="slide-image">
+                <p class="slide-description">
+                  Piazza Pazza | Writing the city <br>
+        City-telling workshop 
+                </p>
+            </div>
+
+                         <!-- SLIDE 9 -->
+            <div class="slide">
+                <img src="Media/8_parapiglia.jpg" alt="Progetto 9" class="slide-image">
+                <p class="slide-description">
+               Parapiglia | Urban Takeover Festival <br>
+        Event and visual design
+                </p>
+            </div>
+
+                           <!-- SLIDE 10 -->
+            <div class="slide">
+                <img src="Media/9_fotosintesi.jpg" alt="Progetto 9" class="slide-image">
+                <p class="slide-description">
+               Fotosintesi Urbana | A wild city<br>
+        Botanic mapping and solar printing
+                </p>
+            </div>
+
+                      <!-- SLIDE 12 -->
+            <div class="slide">
+                <img src="Media/11_tipografia.jpg" alt="Progetto 9" class="slide-image">
+                <p class="slide-description">
+               Microfficine | Crazytypo  <br>
+        Typography workshop
+                </p>
+            </div>
+
+              <!-- SLIDE 13 -->
+            <div class="slide">
+                <img src="Media/12_mappatura.jpg" alt="Progetto 13" class="slide-image">
+                <p class="slide-description">
+              Lenticchie | Emotional Cartography   <br>
+        Social design and community workshop
+                </p>
+            </div>
+
+
+
+
+          
+
+        <!-- INDICATORI -->
+        <div class="dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const sticker = document.getElementById("sticker");
-    let isDragging = false;
-    let offsetX, offsetY;
+    <script>
+        /* ============================================
+           JAVASCRIPT PER LO SLIDER
+           ============================================ */
+        
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
 
-    sticker.addEventListener("mousedown", (e) => {
-      isDragging = true;
-      offsetX = e.clientX - sticker.offsetLeft;
-      offsetY = e.clientY - sticker.offsetTop;
-    });
+        // Funzione per mostrare una slide specifica
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
 
-    document.addEventListener("mousemove", (e) => {
-      if (isDragging) {
-        sticker.style.position = "absolute";
-        sticker.style.left = (e.clientX - offsetX) + "px";
-        sticker.style.top = (e.clientY - offsetY) + "px";
-      }
-    });
+        // Funzione per cambiare slide (avanti/indietro)
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            
+            showSlide(currentSlide);
+        }
 
-    document.addEventListener("mouseup", () => {
-      isDragging = false;
-    });
-  </script>
+        // Funzione per andare a una slide specifica cliccando sui puntini
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Navigazione con tastiera (frecce sinistra/destra)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'Escape') {
+                closeMenu();
+            }
+        });
+
+        /* ============================================
+           JAVASCRIPT PER IL MENU LATERALE
+           ============================================ */
+        
+        const sideMenu = document.querySelector('.side-menu');
+        const overlay = document.querySelector('.overlay');
+
+        // Funzione per aprire il menu
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Blocca lo scroll
+        }
+
+        // Funzione per chiudere il menu
+        function closeMenu() {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Ripristina lo scroll
+        }
+
+        // OPZIONALE: Auto-play dello slider (decommentare per attivare)
+        
+        setInterval(function() {
+            changeSlide(1);
+        }, 12000); 
+
+        /* ============================================
+   INTERAZIONE MOUSE SU SCHERMO
+   ============================================ */
+
+// Riferimenti alle frecce
+const arrowLeft = document.querySelector('.arrow-left');
+const arrowRight = document.querySelector('.arrow-right');
+
+// Mostra le frecce in base alla posizione del mouse
+document.addEventListener('mousemove', function (e) {
+    const screenWidth = window.innerWidth;
+    const middle = screenWidth / 2;
+
+    if (e.clientX < middle) {
+        // mouse a sinistra
+        arrowLeft.style.opacity = '0.6';
+        arrowRight.style.opacity = '0';
+    } else {
+        // mouse a destra
+        arrowRight.style.opacity = '0.6';
+        arrowLeft.style.opacity = '0';
+    }
+});
+
+// Al click nella zona sinistra/destra, cambia slide
+document.addEventListener('click', function (e) {
+    const screenWidth = window.innerWidth;
+    const middle = screenWidth / 2;
+
+    // Evita di attivare lo slider se si clicca sul menu o sulla freccia stessa
+    if (e.target.closest('.about-btn') || e.target.closest('.side-menu') || e.target.closest('.overlay') || e.target.closest('.arrow')) {
+        return;
+    }
+
+    if (e.clientX < middle) {
+        changeSlide(-1);
+    } else {
+        changeSlide(1);
+    }
+});
+
+/* ============================================
+   CURSORE DIREZIONALE
+   ============================================ */
+
+document.addEventListener('mousemove', function (e) {
+    const middle = window.innerWidth / 2;
+
+    if (e.clientX < middle) {
+        document.body.classList.add('left-cursor');
+        document.body.classList.remove('right-cursor');
+    } else {
+        document.body.classList.add('right-cursor');
+        document.body.classList.remove('left-cursor');
+    }
+});
+
+
+        
+    </script>
 </body>
 </html>
