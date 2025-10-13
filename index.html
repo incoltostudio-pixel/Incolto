@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Portfolio</title>
+    <title>Incolto</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/media_2/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/media_2/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/media_2/favicon.png">
+<link rel="manifest" href="/site.webmanifest">
 
     <style>
         /* ============================================
@@ -17,7 +22,7 @@
 
         body {
             background-color: #000000;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.8);
  font-family: "Fragment Mono", monospace;
   font-weight: 400;
   font-style: normal;
@@ -47,10 +52,12 @@
             font-size: 14px;
             font-weight: regular;
             letter-spacing: 0px;
-            color: #ffffff;
+            color: white;
             text-decoration: none;
             cursor: crosshair;
         }
+
+     
 
         .about-btn {
             background: none;
@@ -221,6 +228,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
+    
         /* ============================================
            FRECCE DI NAVIGAZIONE
            ============================================ */
@@ -235,11 +243,11 @@
            ============================================ */
         @media (max-width: 768px) {
             .header {
-                padding: 20px 30px;
+                padding: 10px 20px;
             }
 
             .logo {
-                font-size: 18px;
+                font-size: 12px;
             }
 
             .about-btn {
@@ -262,7 +270,7 @@
             }
 
             .side-menu h2 {
-                font-size: 24px;
+                font-size: 15px;
             }
 
             .slider {
@@ -276,7 +284,7 @@
             }
 
             .slide-description {
-                font-size: 14px;
+                font-size: 8px;
                 padding: 0 15px;
             }
 
@@ -331,9 +339,9 @@ body.right-cursor {
     <div class="side-menu">
         <button class="close-btn" onclick="closeMenu()">×</button>
         <div class="side-menu-content">
-            <h2>Incolto Studio</h2>
+            <h2>INCOLTO</h2>
             <p>
-                Founded in 2019, Incolto creates site-specific projects blending social design, participatory practices and visual arts. Centred on regeneration as a shared practice of care, their work fosters new ways of inhabiting places through simple, relational interventions that spark urban rituals and intergenerational ties.
+                Founded in 2019, Incolto creates site-specific projects blending social design, participatory practices and visual arts. Centred on regeneration as a shared practice of care, our work fosters new ways of inhabiting places through simple, relational interventions that spark urban rituals and intergenerational ties.
             
             </p>
            
@@ -341,19 +349,27 @@ body.right-cursor {
                We collaborate with public institutions, urban planning and architecture firms, placemakers, cultural centers, and festivals.
             </p>
             <p>
-        
-                - Social design<br>
-                - Workshops <br>
-                - Public space interventions <br>
-                - Temporary installation<br>
-                - Visual design and storytelling<br>
+
+             
+           <!-- Friends and collaborators include: Orizzontale Architecture, iMorticelli, Alle Ortiche, Blam Strategie Adattive, Crem'amare, Fritz Festival, Parco Naturale Alpi Cozzi, Urbano Magazine & more. -->
+
+        </p>
+        <p>
+                •  Social design<br>
+                •  Workshops <br>
+                •  Alternative pedagogies <br>
+                •  Public space interventions <br>
+                •  Temporary installation<br>
+                •  Visual design and storytelling<br>
 
 
             </p>
+
+
             <p>
                 
                 incolto.studio@gmail.com<br>
-                 @incolto<br>
+                <a href="https://www.instagram.com/incolto_studio/" target="_blank" rel="noopener noreferrer" style="color: rgba(255, 255, 255, 0.8);text-decoration: none;">@incolto_studio</a><br>
                 +39 3801784736
             </p>
         </div>
@@ -365,7 +381,7 @@ body.right-cursor {
             
             <!-- SLIDE 1 -->
             <div class="slide active">
-                <img src="./Media/1_morticelli_1.jpg" alt="Progetto 1" class="slide-image">
+                <img src="./media_2/morticelli.jpg" alt="Progetto 1" class="slide-image">
                 <p class="slide-description">
                     Voci Plurali | Narrating Tiers Lieux<br>
                    Brand, storytelling and space design for iMorticelli
@@ -383,7 +399,7 @@ body.right-cursor {
 
             <!-- SLIDE 3 -->
             <div class="slide">
-                <img src="Media/3_zanzare.JPG" alt="Progetto 3" class="slide-image">
+                <img src="media_2/zanzare.jpg" alt="Progetto 3" class="slide-image">
                 <p class="slide-description">
                     La casa delle Zanzare<br>
                   Installation at Crem'amare Festival
@@ -392,7 +408,7 @@ body.right-cursor {
 
             <!-- SLIDE 4 -->
             <div class="slide">
-                <img src="Media/4_paesaggio_1.jpg" alt="Progetto 4" class="slide-image">
+                <img src="media_2/paesaggio_1.jpg" alt="Progetto 4" class="slide-image">
                 <p class="slide-description">
                    Paesaggio Prossimo | Observing the alpine anthropocene <br>
            Landscape reading workshop
@@ -410,12 +426,14 @@ body.right-cursor {
 
                        <!-- SLIDE 6 -->
             <div class="slide">
-                <img src="Media/7_ortiche.jpg" alt="Progetto65" class="slide-image">
+                <img src="media_2/ortiche_2.jpg" alt="Progetto65" class="slide-image">
                 <p class="slide-description">
                   Menabò | Research on Genova city ritms <br>
         City-telling installation
                 </p>
             </div>
+
+        
 
                          <!-- SLIDE 7 -->
             <div class="slide">
@@ -428,7 +446,7 @@ body.right-cursor {
 
                          <!-- SLIDE 9 -->
             <div class="slide">
-                <img src="Media/8_parapiglia.jpg" alt="Progetto 9" class="slide-image">
+                <img src="media_2/parapiglia_2.jpg" alt="Progetto 9" class="slide-image">
                 <p class="slide-description">
                Parapiglia | Urban Takeover Festival <br>
         Event and visual design
@@ -437,7 +455,7 @@ body.right-cursor {
 
                            <!-- SLIDE 10 -->
             <div class="slide">
-                <img src="Media/9_fotosintesi.jpg" alt="Progetto 9" class="slide-image">
+                <img src="media_2/cianotipia.jpg" alt="Progetto 9" class="slide-image">
                 <p class="slide-description">
                Fotosintesi Urbana | A wild city<br>
         Botanic mapping and solar printing
@@ -446,7 +464,7 @@ body.right-cursor {
 
                       <!-- SLIDE 12 -->
             <div class="slide">
-                <img src="Media/11_tipografia.jpg" alt="Progetto 9" class="slide-image">
+                <img src="media_2/Lab_1.jpg" alt="Progetto 9" class="slide-image">
                 <p class="slide-description">
                Microfficine | Crazytypo  <br>
         Typography workshop
@@ -455,10 +473,19 @@ body.right-cursor {
 
               <!-- SLIDE 13 -->
             <div class="slide">
-                <img src="Media/12_mappatura.jpg" alt="Progetto 13" class="slide-image">
+                <img src="media_2/mappatura.jpg" alt="Progetto 13" class="slide-image">
                 <p class="slide-description">
               Lenticchie | Emotional Cartography   <br>
         Social design and community workshop
+                </p>
+            </div>
+
+               <!-- SLIDE 13 -->
+            <div class="slide">
+                <img src="media_2/poster_3.jpg" alt="Progetto 13" class="slide-image">
+                <p class="slide-description">
+              Piazza Pazza |  Writing the city <br>
+        Poster workshop design with students
                 </p>
             </div>
 
@@ -548,9 +575,9 @@ body.right-cursor {
 
         // OPZIONALE: Auto-play dello slider (decommentare per attivare)
         
-        setInterval(function() {
-            changeSlide(1);
-        }, 12000); 
+        // setInterval(function() {
+        //     changeSlide(1);
+        // }, 12000); 
 
         /* ============================================
    INTERAZIONE MOUSE SU SCHERMO
